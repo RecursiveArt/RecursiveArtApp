@@ -1,4 +1,5 @@
 import Moralis from "moralis";
+import { NFTStorage, File } from "nft.storage";
 
 export async function logIn({ state, commit }, silently = false) {
   let user = Moralis.User.current();
@@ -27,4 +28,14 @@ export async function logIn({ state, commit }, silently = false) {
 export async function logOut({ commit }) {
   await Moralis.User.logOut();
   commit("setUser", null);
+}
+
+export async function uploadImage(context, { name, description, image }) {
+  const client = new NFTStorage({ token: process.env.storageApiKey });
+
+  return client.store({
+    name,
+    description,
+    image
+  });
 }
