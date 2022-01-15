@@ -25,8 +25,10 @@
 <style lang="scss">
 .nft-card {
   flex-grow: 1;
-  min-width: 30%;
-  max-width: 350px;
+  min-width: 20%;
+  @media (min-width: $breakpoint-sm-min) {
+    max-width: 50%;
+  }
 
   .nft-img {
     background-color: $grey-9;
