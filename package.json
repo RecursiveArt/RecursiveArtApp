@@ -1,0 +1,46 @@
+{
+  "name": "recursive-art-app",
+  "version": "0.0.1",
+  "description": "Recursive Art Marketplace",
+  "productName": "Marketplace",
+  "author": "Craig Laparo <gruppler+github@gmail.com>",
+  "private": true,
+  "scripts": {
+    "lint": "eslint --ext .js,.vue ./",
+    "test": "echo \"No test specified\" && exit 0",
+    "icons": "icongenie g -i icon.png --quality 12 --theme-color 191919 --skip-trim",
+    "dev": "quasar dev -m spa",
+    "build": "quasar build -m pwa"
+  },
+  "dependencies": {
+    "@quasar/extras": "^1.0.0",
+    "@walletconnect/web3-provider": "^1.7.1",
+    "core-js": "^3.6.5",
+    "jazzicon": "^1.5.0",
+    "lodash": "^4.17.21",
+    "moralis": "^0.0.184",
+    "quasar": "^2.0.0",
+    "vuex": "^4.0.1"
+  },
+  "devDependencies": {
+    "@babel/eslint-parser": "^7.13.14",
+    "@quasar/app": "^3.0.0",
+    "dotenv": "^12.0.3",
+    "eslint": "^7.14.0",
+    "eslint-config-prettier": "^8.1.0",
+    "eslint-plugin-vue": "^7.0.0",
+    "eslint-webpack-plugin": "^2.4.0",
+    "node-polyfill-webpack-plugin": "^1.1.4",
+    "workbox-webpack-plugin": "^6.0.0"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead"
+  ],
+  "engines": {
+    "node": ">= 12.22.1",
+    "npm": ">= 6.13.4",
+    "yarn": ">= 1.21.1"
+  }
+}

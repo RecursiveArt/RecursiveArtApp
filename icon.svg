@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" style="" viewBox="0 0 512 512" data-svgdocument="" id="_90OiF3nQhnIx7K1i6gIgT" class="fl-svgdocument" x="0" y="0" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <rect data-fl-background="" x="0" y="0" width="512" height="512" fill="#191919" />
+  <defs id="_KTAok-gLaGMC1CggpAMcL" transform="matrix(0.39643213152885437, 0, 0, 0.39643213152885437, 1.6438274383544922, 91.57364654541016)" />
+  <g transform="matrix(3.698480558099922, 0, 0, 3.698480558099922, 89.56839163944659, 89.56836871299816)">
+    <g fill="#b17f11">
+      <path transform="matrix(1, 0, 0, 1, 0, 0)" fill="#b17f11" data-type="polygon" d="M81.27 82.439L64.26 87.48L46.09 82.43L63.08 77.391L63.1 77.391Z" />
+      <path d="M77.32,26.819c0,0.021,0,0.051-0.01,0.07l5.02-18.08l5.02,16.931l-5.039,18.18l-5.031-16.96L77.32,26.819z" transform="matrix(1, 0, 0, 1, 0, 0)" fill="#b17f11" stroke="#580707" stroke-width="0" />
+      <path transform="matrix(1, 0, 0, 1, 0, 0)" fill="#b17f11" data-type="polygon" d="M57.46 21.87L59.91 30.12L40.971 26.76Z" />
+      <path transform="matrix(1, 0, 0, 1, 0, 0)" fill="#b17f11" data-type="polygon" d="M26.88 49.109L21.931 32.399L30.28 29.93Z" />
+    </g>
+    <g fill="#eea10c">
+      <path d="M12.69,63.109L7.66,81.23L2.65,64.34l5.04-18.18l5.02,16.91v0.01L12.69,63.109z" transform="matrix(1, 0, 0, 1, 0, 0)" fill="#eea10c" />
+      <path d="M21.36,32.569l7.85,26.511l-15.96,3.73L2.76,27.41l18.591,5.159H21.36z" transform="matrix(1, 0, 0, 1, 0, 0)" fill="#eea10c" />
+      <path transform="matrix(1, 0, 0, 1, 0, 0)" fill="#eea10c" data-type="polygon" d="M14.271 63.189L29.681 59.609L49.04 63.24L32.311 68.2Z" />
+      <path d="M62.62,2.649L57.471,21.24l-35.4,10.489l5.16-18.59v-0.01L62.62,2.649z" transform="matrix(1, 0, 0, 1, 0, 0)" fill="#eea10c" />
+      <path transform="matrix(1, 0, 0, 1, 0, 0)" fill="#eea10c" data-type="polygon" d="M27.4 87.34L32.55 68.75L67.95 58.26L67.96 58.26L62.8 76.85Z" />
+      <path d="M87.24,62.67l-18.59-5.16h-0.01L58.13,22.01l18.591,5.15L87.24,62.67z" transform="matrix(1, 0, 0, 1, 0, 0)" fill="#eea10c" />
+    </g>
+    <g fill="#ffc700">
+      <path transform="matrix(1, 0, 0, 1, 0, 0)" fill="#ffc700" stroke="#e70000" stroke-width="0" data-type="polygon" d="M63.46 76.83L68.641 58.18L87.3 63.35L82.12 82.01Z" />
+      <path transform="matrix(1, 0, 0, 1, 0, 0)" fill="#ffc700" stroke="#e70000" stroke-width="0" data-type="polygon" d="M58.12 21.26L63.279 2.68L81.93 7.859L76.779 26.43Z" />
+      <path transform="matrix(1, 0, 0, 1, 0, 0)" fill="#ffc700" data-type="polygon" d="M68.04 57.609L59.73 60.07L63.12 40.971L68.05 57.609Z" />
+      <path transform="matrix(1, 0, 0, 1, 0, 0)" fill="#ffc700" data-type="polygon" d="M8.73 7.56L25.74 2.52L43.91 7.569L26.92 12.609L26.9 12.609Z" />
+      <path transform="matrix(1, 0, 0, 1, 0, 0)" fill="#ffc700" data-type="polygon" d="M31.88 68.74L26.7 87.391L8.07 82.221L13.24 63.58Z" />
+      <path transform="matrix(1, 0, 0, 1, 0, 0)" fill="#ffc700" data-type="polygon" d="M21.36 31.819L2.721 26.649L7.88 8.08L26.521 13.25Z" />
+    </g>
+  </g>
+</svg>
