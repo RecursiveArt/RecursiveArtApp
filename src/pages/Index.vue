@@ -6,11 +6,14 @@
 
     <div class="row q-gutter-lg">
       <NFTCard v-for="nft in nfts" :key="nft.id" :nft="nft">
-        <template v-slot:header>
-          <q-btn label="Mint" color="primary" flat />
-        </template>
         <template v-slot:footer>
-          <q-btn label="Sell" color="primary" flat />
+          <div>
+            <div class="text-subtitle">
+              <div class="text-bold">Price</div>
+              <div>{{ tokenValueTxt(nft.price, 0.0001, "ETH") }}</div>
+            </div>
+          </div>
+          <q-btn label="Buy" color="primary" flat />
         </template>
       </NFTCard>
     </div>
@@ -20,6 +23,7 @@
 <script>
 import { defineComponent } from "vue";
 import { useStore } from "vuex";
+import { tokenValueTxt } from "../util/formatting"
 
 import NFTCard from "../components/NFTCard";
 
@@ -70,6 +74,7 @@ export default defineComponent({
     ];
 
     return {
+      tokenValueTxt,
       nfts
     };
   }

@@ -12,12 +12,6 @@
       </q-item-section>
     </q-item>
     <div class="nft-img" :style="{ backgroundImage: `url(${nft.imgURL})` }" />
-    <q-card-section>
-      <div class="text-subtitle">
-        <div class="text-bold">Price</div>
-        <div>{{ tokenValueTxt(nft.price, 0.0001, "ETH") }}</div>
-      </div>
-    </q-card-section>
     <q-card-section v-if="$slots.footer">
       <slot name="footer" />
     </q-card-section>
@@ -47,7 +41,7 @@
 
 <script>
 import { defineComponent, computed } from "vue";
-import { getEllipsisTxt, tokenValueTxt } from "../util/formatting";
+import { getEllipsisTxt } from "../util/formatting";
 
 export default defineComponent({
   name: "NFTCard",
@@ -56,8 +50,7 @@ export default defineComponent({
 
   setup() {
     return {
-      getEllipsisTxt,
-      tokenValueTxt
+      getEllipsisTxt
     };
   }
 });
