@@ -20,7 +20,18 @@
     </q-header>
 
     <q-drawer v-model="leftDrawerOpen" bordered>
-      <q-list></q-list>
+      <q-list>
+        <q-item :to="{ name: 'marketplace' }" exact clickable v-ripple>
+          <q-item-section>
+            <q-item-label>Marketplace</q-item-label>
+          </q-item-section>
+        </q-item>
+        <q-item :to="{ name: 'dashboard' }" clickable v-ripple>
+          <q-item-section>
+            <q-item-label>Dashboard</q-item-label>
+          </q-item-section>
+        </q-item>
+      </q-list>
     </q-drawer>
 
     <q-page-container>
