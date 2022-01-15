@@ -26,7 +26,7 @@
   flex-grow: 1;
   min-width: 20%;
   @media (min-width: $breakpoint-sm-min) {
-    max-width: 50%;
+    max-width: calc(50% - 24px);
   }
 
   .nft-img {
