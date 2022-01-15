@@ -26,7 +26,7 @@
             <q-item-label>Marketplace</q-item-label>
           </q-item-section>
         </q-item>
-        <q-item :to="{ name: 'dashboard' }" clickable v-ripple>
+        <q-item v-if="user" :to="{ name: 'dashboard' }" clickable v-ripple>
           <q-item-section>
             <q-item-label>Dashboard</q-item-label>
           </q-item-section>
@@ -41,7 +41,9 @@
 </template>
 
 <script>
-import { defineComponent, ref } from "vue";
+import { defineComponent, computed, ref } from "vue";
+import { useStore } from "vuex";
+
 import UserMenu from "../components/UserMenu";
 
 export default defineComponent({
@@ -52,9 +54,14 @@ export default defineComponent({
   },
 
   setup() {
+    const store = useStore();
+
+    const user = computed(() => store.state.web3.user);
+
     const leftDrawerOpen = ref(false);
 
     return {
+      user,
       leftDrawerOpen,
       toggleLeftDrawer() {
         leftDrawerOpen.value = !leftDrawerOpen.value;

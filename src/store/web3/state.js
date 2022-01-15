@@ -1,5 +1,7 @@
 export default function() {
   return {
-    user: null
+    user: null,
+    userNFTs: [],
+    userBalances: []
   };
 }

@@ -2,16 +2,19 @@
   <q-card class="nft-card">
     <q-item>
       <q-item-section>
-        <q-item-label class="text-h6">{{ nft.title }}</q-item-label>
+        <q-item-label class="text-h6">{{ nft.name }}</q-item-label>
         <q-item-label class="text-accent">{{
-          "0x" + getEllipsisTxt(nft.owner.slice(2))
+          "0x" + getEllipsisTxt(nft.token_address.slice(2))
         }}</q-item-label>
       </q-item-section>
       <q-item-section v-if="$slots.header">
         <slot name="header" />
       </q-item-section>
     </q-item>
-    <div class="nft-img" :style="{ backgroundImage: `url(${nft.imgURL})` }" />
+    <div
+      class="nft-img"
+      :style="{ backgroundImage: `url(${nft.token_uri})` }"
+    />
     <q-card-section v-if="$slots.footer">
       <slot name="footer" />
     </q-card-section>

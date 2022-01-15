@@ -5,7 +5,7 @@
     </div>
 
     <div class="row q-gutter-lg">
-      <NFTCard v-for="nft in nfts" :key="nft.id" :nft="nft">
+      <NFTCard v-for="nft in nfts" :key="nft.token_id" :nft="nft">
         <template v-slot:footer>
           <div>
             <div class="text-subtitle">
@@ -37,38 +37,38 @@ export default defineComponent({
 
     const nfts = [
       {
-        id: "1111111111111111",
-        title: "Test 1",
-        owner: "0x0wn3r4ddr355",
-        imgURL: "",
+        token_id: "1",
+        name: "Test 1",
+        token_address: "0x0wn3r4ddr355",
+        token_uri: "",
         price: 0.01
       },
       {
-        id: "2222222222222222",
-        title: "Test 2",
-        owner: "0x0wn3r4ddr355",
-        imgURL: "",
+        token_id: "2",
+        name: "Test 2",
+        token_address: "0x0wn3r4ddr355",
+        token_uri: "",
         price: 0.02
       },
       {
-        id: "3333333333333333",
-        title: "Test 3",
-        owner: "0x0wn3r4ddr355",
-        imgURL: "",
+        token_id: "3",
+        name: "Test 3",
+        token_address: "0x0wn3r4ddr355",
+        token_uri: "",
         price: 0.03
       },
       {
-        id: "4444444444444444",
-        title: "Test 4",
-        owner: "0x0wn3r4ddr355",
-        imgURL: "",
+        token_id: "4",
+        name: "Test 4",
+        token_address: "0x0wn3r4ddr355",
+        token_uri: "",
         price: 0.04
       },
       {
-        id: "5555555555555555",
-        title: "Test 5",
-        owner: "0x0wn3r4ddr355",
-        imgURL: "",
+        token_id: "5",
+        name: "Test 5",
+        token_address: "0x0wn3r4ddr355",
+        token_uri: "",
         price: 0.05
       }
     ];

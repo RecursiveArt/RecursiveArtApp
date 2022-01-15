@@ -4,6 +4,18 @@
     {{ address }}
     <q-menu>
       <q-list>
+        <!-- balances -->
+        <q-item v-for="token in balances" :key="token.symbol" disabled>
+          <q-item-section avatar>
+            <q-icon name="wallet" />
+          </q-item-section>
+          <q-item-section side>
+            <q-item-label>
+              {{ tokenValueTxt(token.balance, token.decimals, token.symbol) }}
+            </q-item-label>
+          </q-item-section>
+        </q-item>
+
         <!-- Log Out -->
         <q-item @click="logOut" clickable v-ripple>
           <q-item-section avatar>
@@ -31,7 +43,7 @@
 <script>
 import { defineComponent, computed } from "vue";
 import { useStore } from "vuex";
-import { getEllipsisTxt } from "../util/formatting";
+import { getEllipsisTxt, tokenValueTxt } from "../util/formatting";
 import jazzicon from "jazzicon";
 
 export default defineComponent({
@@ -41,6 +53,8 @@ export default defineComponent({
     const store = useStore();
 
     const user = computed(() => store.state.web3.user);
+
+    const balances = computed(() => store.state.web3.userBalances);
 
     const address = computed(() => {
       if (user.value) {
@@ -67,10 +81,10 @@ export default defineComponent({
       store.dispatch("logOut");
     };
 
-    store.dispatch("logIn", true);
-
     return {
+      tokenValueTxt,
       user,
+      balances,
       avatar,
       address,
       logIn,
