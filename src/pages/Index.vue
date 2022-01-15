@@ -5,7 +5,14 @@
     </div>
 
     <div class="row q-gutter-lg">
-      <NFTCard v-for="nft in nfts" :key="nft.id" :nft="nft" />
+      <NFTCard v-for="nft in nfts" :key="nft.id" :nft="nft">
+        <template v-slot:header>
+          <q-btn label="Mint" color="primary" flat />
+        </template>
+        <template v-slot:footer>
+          <q-btn label="Sell" color="primary" flat />
+        </template>
+      </NFTCard>
     </div>
   </q-page>
 </template>

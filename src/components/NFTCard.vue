@@ -16,6 +16,9 @@
         <div>{{ nft.price }} ETH</div>
       </div>
     </q-card-section>
+    <q-card-section v-if="$slots.footer">
+      <slot name="footer" />
+    </q-card-section>
   </q-card>
 </template>
 
