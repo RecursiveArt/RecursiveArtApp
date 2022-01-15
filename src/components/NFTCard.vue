@@ -3,7 +3,9 @@
     <q-item>
       <q-item-section>
         <q-item-label class="text-h6">{{ nft.title }}</q-item-label>
-        <q-item-label class="text-accent">{{ nft.owner }}</q-item-label>
+        <q-item-label class="text-accent">{{
+          "0x" + getEllipsisTxt(nft.owner.slice(2))
+        }}</q-item-label>
       </q-item-section>
       <q-item-section v-if="$slots.header">
         <slot name="header" />
@@ -13,7 +15,7 @@
     <q-card-section>
       <div class="text-subtitle">
         <div class="text-bold">Price</div>
-        <div>{{ nft.price }} ETH</div>
+        <div>{{ tokenValueTxt(nft.price, 0.0001, "ETH") }}</div>
       </div>
     </q-card-section>
     <q-card-section v-if="$slots.footer">
@@ -44,11 +46,19 @@
 </style>
 
 <script>
-import { computed } from "vue";
+import { defineComponent, computed } from "vue";
+import { getEllipsisTxt, tokenValueTxt } from "../util/formatting";
 
-export default {
+export default defineComponent({
   name: "NFTCard",
 
-  props: ["nft"]
-};
+  props: ["nft"],
+
+  setup() {
+    return {
+      getEllipsisTxt,
+      tokenValueTxt
+    };
+  }
+});
 </script>

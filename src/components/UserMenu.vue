@@ -31,6 +31,7 @@
 <script>
 import { defineComponent, computed } from "vue";
 import { useStore } from "vuex";
+import { getEllipsisTxt } from "../util/formatting";
 import jazzicon from "jazzicon";
 
 export default defineComponent({
@@ -43,8 +44,7 @@ export default defineComponent({
 
     const address = computed(() => {
       if (user.value) {
-        let address = user.value.get("ethAddress");
-        return `${address.substr(0, 6)}***${address.substr(-4)}`;
+        return "0x" + getEllipsisTxt(user.value.get("ethAddress").slice(2));
       }
       return "";
     });
