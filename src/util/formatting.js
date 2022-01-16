@@ -41,3 +41,16 @@ export const tokenValue = (value, decimals) =>
  */
 export const tokenValueTxt = (value, decimals, symbol) =>
   `${n4.format(tokenValue(value, decimals))} ${symbol}`;
+
+export const formatError = error => {
+  if (typeof error === "string") {
+    return error;
+  } else {
+    if ("message" in error) {
+      return error.message;
+    } else if ("code" in error) {
+      return error.code;
+    }
+  }
+  return error;
+};

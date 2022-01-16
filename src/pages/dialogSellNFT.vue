@@ -1,5 +1,5 @@
 <template>
-  <q-dialog v-bind="$attrs">
+  <q-dialog v-bind="$attrs" :persistent="isSelling">
     <q-card>
       <q-card-section>
         <div class="text-h5">
@@ -11,6 +11,7 @@
 
       <NFTCard v-if="nft" :nft="nft" />
 
+      <!-- Price -->
       <q-input
         v-model.number="price"
         label="Price"
@@ -18,13 +19,23 @@
         suffix="ETH"
         :min="0"
         :step="0.01"
+        :disable="isSelling"
         autofocus
         filled
         square
       />
 
       <q-card-actions align="right">
-        <q-btn label="Cancel" color="primary" v-close-popup flat />
+        <!-- Close -->
+        <q-btn
+          label="Cancel"
+          color="primary"
+          :disable="isSelling"
+          v-close-popup
+          flat
+        />
+
+        <!-- Sell -->
         <q-btn
           @click="confirmSell"
           label="Sell"
@@ -42,6 +53,8 @@ import { defineComponent, computed, ref, watch } from "vue";
 import { useRouter } from "vue-router";
 import { useStore } from "vuex";
 import { useQuasar } from "quasar";
+
+import { formatError } from "../util/formatting";
 
 import NFTCard from "../components/NFTCard";
 
@@ -73,16 +86,23 @@ export default defineComponent({
       }
       try {
         isSelling.value = true;
-        await store.dispatch("sellNFT", {
+        const receipt = await store.dispatch("sellNFT", {
           token_address: props.token_address,
           token_id: props.token_id,
           price: price.value
+        });
+        console.log(receipt);
+        $q.notify({
+          message: "Success",
+          type: "positive",
+          icon: "check",
+          position: "top-right"
         });
         isSelling.value = false;
         router.back();
       } catch (error) {
         $q.notify({
-          message: error.error,
+          message: formatError(error),
           type: "negative",
           icon: "alert",
           position: "top-right"

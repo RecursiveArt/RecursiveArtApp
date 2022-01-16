@@ -58,14 +58,14 @@ export default defineComponent({
 
     const address = computed(() => {
       if (user.value) {
-        return "0x" + getEllipsisTxt(user.value.get("ethAddress").slice(2));
+        return "0x" + getEllipsisTxt(store.state.web3.address.slice(2));
       }
       return "";
     });
 
     const avatar = computed(() => {
       if (user.value) {
-        const addr = user.value.get("ethAddress").slice(2, 10);
+        const addr = store.state.web3.address.slice(2, 10);
         const seed = parseInt(addr, 16);
         const avatar = jazzicon(24, seed);
         return avatar.innerHTML;
