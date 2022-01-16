@@ -42,7 +42,10 @@ export async function logIn({ state, commit }, silently = false) {
   if (user) {
     // Initialize Web3
     try {
-      await Moralis.enableWeb3({ chain });
+      const provider = (await Moralis.isMetaMaskInstalled())
+        ? "metamask"
+        : "walletconnect";
+      await Moralis.enableWeb3({ chain, provider });
     } catch (error) {
       console.error(error);
     }
