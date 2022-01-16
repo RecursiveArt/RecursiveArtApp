@@ -1,5 +1,9 @@
 // app global css in SCSS form
 
+.q-dialog__backdrop {
+  backdrop-filter: blur(10px);
+}
+
 body.desktop {
   &::-webkit-scrollbar-corner,
   ::-webkit-scrollbar-corner {
