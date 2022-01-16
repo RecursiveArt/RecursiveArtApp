@@ -30,7 +30,7 @@
 </template>
 
 <script>
-import { defineComponent } from "vue";
+import { defineComponent, computed, onBeforeMount, onBeforeUnmount } from "vue";
 import { useStore } from "vuex";
 import { tokenValueTxt } from "../util/formatting";
 
@@ -44,43 +44,22 @@ export default defineComponent({
   setup() {
     const store = useStore();
 
-    const nfts = [
-      {
-        token_id: "1",
-        name: "Test 1",
-        token_address: "0x0wn3r4ddr355",
-        token_uri: "",
-        price: 0.01
-      },
-      {
-        token_id: "2",
-        name: "Test 2",
-        token_address: "0x0wn3r4ddr355",
-        token_uri: "",
-        price: 0.02
-      },
-      {
-        token_id: "3",
-        name: "Test 3",
-        token_address: "0x0wn3r4ddr355",
-        token_uri: "",
-        price: 0.03
-      },
-      {
-        token_id: "4",
-        name: "Test 4",
-        token_address: "0x0wn3r4ddr355",
-        token_uri: "",
-        price: 0.04
-      },
-      {
-        token_id: "5",
-        name: "Test 5",
-        token_address: "0x0wn3r4ddr355",
-        token_uri: "",
-        price: 0.05
-      }
-    ];
+    const nfts = computed(() => store.state.web3.offers);
+
+    store.dispatch("getMarket");
+
+    // let listener = null;
+    // onBeforeMount(async () => {
+    //   listener = await store.dispatch("listenMarket");
+    //   console.log(listener);
+    // });
+    // onBeforeUnmount(() => {
+    //   if (listener) {
+    //     listener.unsubscribe();
+    //     listener = null;
+    //     console.log(listener);
+    //   }
+    // });
 
     return {
       tokenValueTxt,

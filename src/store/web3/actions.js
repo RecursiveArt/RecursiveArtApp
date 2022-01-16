@@ -65,6 +65,29 @@ export async function logOut({ commit }) {
   commit("setUserBalances", []);
 }
 
+export async function getMarket({ commit }) {
+  let query1 = new Moralis.Query("OfferingPlacedPrice");
+  let results1 = await query1.find();
+  let query2 = new Moralis.Query("OfferingPlacedUserData");
+  let results2 = await query2.find();
+  let query3 = new Moralis.Query("OfferingPlacedTokenData");
+  let results3 = await query3.find();
+
+  const results = [];
+  for (let i = 0; i < results1.length; i++) {
+    results[i] = {
+      ...results1[i].attributes,
+      ...results2[i].attributes,
+      ...results3[i].attributes
+    };
+  }
+
+  // commit("setOffers", results);
+  console.log(results);
+
+  return results;
+}
+
 export async function listenMarket({ state, commit }) {
   let query = new Moralis.Query("OfferingPlacedTokenData");
   let subscription = await query.subscribe();
@@ -84,6 +107,8 @@ export async function listenMarket({ state, commit }) {
   subscription.on("delete", object => {
     console.log("object deleted", object);
   });
+
+  commit("setOffers", await query.find());
 
   return subscription;
 }
