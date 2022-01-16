@@ -45,3 +45,10 @@ body.desktop {
     background: transparent;
   }
 }
+
+.page-card {
+  min-width: 20%;
+  @media (min-width: $breakpoint-sm-min) {
+    max-width: calc(50% - 24px);
+  }
+}

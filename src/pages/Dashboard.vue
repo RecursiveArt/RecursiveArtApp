@@ -5,32 +5,47 @@
     </div>
 
     <div class="row q-gutter-lg">
-      <NFTCard v-for="nft in nfts" :key="nft.token_uri" :nft="nft">
+      <NFTCard
+        class="page-card"
+        v-for="nft in nfts"
+        :key="nft.token_uri"
+        :nft="nft"
+      >
         <template v-slot:header>
-          <q-btn label="Mint Recursive" color="primary" flat />
+          <!-- Mint Recursive -->
+          <q-btn label="Mint Recursive" color="accent" flat />
         </template>
-        <template v-slot:footer>
-          <!-- Sell -->
-          <q-btn v-if="nft.price" label="Sell" color="primary" flat />
 
-          <!-- Set price -->
-          <div v-else>
-            <div class="text-subtitle">
-              <q-btn label="Set Sale Price" color="primary" flat />
-              <div v-if="nft.price">
+        <template v-slot:footer>
+          <!-- Price -->
+          <template v-if="nft.price">
+            <q-item-section>
+              <q-item-label>
                 {{ tokenValueTxt(nft.price, 0.0001, "ETH") }}
-              </div>
-            </div>
-          </div>
+              </q-item-label>
+            </q-item-section>
+            <q-item-section side>
+              <q-btn label="Cancel Sale" color="negative" flat />
+            </q-item-section>
+          </template>
+
+          <!-- Sell -->
+          <q-item-section v-else>
+            <q-btn @click="sell(nft)" label="Sell" color="secondary" flat />
+          </q-item-section>
         </template>
       </NFTCard>
     </div>
+
+    <router-view :model-value="true" no-route-dismiss @hide="$router.back()" />
   </q-page>
 </template>
 
 <script>
-import { defineComponent, computed } from "vue";
+import { defineComponent, computed, nextTick, ref } from "vue";
+import { useRouter, useRoute } from "vue-router";
 import { useStore } from "vuex";
+
 import { tokenValueTxt } from "../util/formatting";
 
 import NFTCard from "../components/NFTCard";
@@ -40,14 +55,23 @@ export default defineComponent({
 
   components: { NFTCard },
 
-  setup() {
+  props: ["dialog"],
+
+  setup(props) {
     const store = useStore();
+    const router = useRouter();
+    const route = useRoute();
 
     const nfts = computed(() => store.state.web3.userNFTs);
 
+    const sell = ({ token_address, token_id }) => {
+      router.push({ name: "sell", params: { token_address, token_id } });
+    };
+
     return {
       tokenValueTxt,
-      nfts
+      nfts,
+      sell
     };
   }
 });

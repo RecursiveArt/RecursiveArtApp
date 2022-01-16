@@ -1,6 +1,8 @@
 import Moralis from "moralis";
 import { NFTStorage } from "nft.storage";
 
+const chain = "goerli";
+
 export async function init({ commit, dispatch }) {
   return dispatch("logIn", true);
 }
@@ -27,11 +29,8 @@ export async function logIn({ state, commit }, silently = false) {
   }
   commit("setUser", user);
   if (user) {
-    commit("setUserNFTs", await Moralis.Web3.getNFTs({ chain: "goerli" }));
-    commit(
-      "setUserBalances",
-      await Moralis.Web3.getAllERC20({ chain: "goerli" })
-    );
+    commit("setUserNFTs", await Moralis.Web3.getNFTs({ chain }));
+    commit("setUserBalances", await Moralis.Web3.getAllERC20({ chain }));
   } else {
     commit("setUserNFTs", []);
     commit("setUserBalances", []);
@@ -54,4 +53,14 @@ export async function uploadImage(context, { name, description, image }) {
     description,
     image
   });
+}
+
+export async function sellNFT(context, { token_id, price }) {
+  // return Moralis.Web3API.native.runContractFunction({
+  //   chain,
+  //   address: "",
+  //   function_name: "",
+  //   abi: [],
+  //   params: {}
+  // });
 }

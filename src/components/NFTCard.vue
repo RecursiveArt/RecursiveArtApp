@@ -1,33 +1,29 @@
 <template>
   <q-card class="nft-card">
-    <q-item>
-      <q-item-section>
+    <q-card-section class="row q-gutter-x-sm">
+      <div class="col-grow">
         <q-item-label class="text-h6">{{ nft.name }}</q-item-label>
         <q-item-label class="text-accent">{{
           "0x" + getEllipsisTxt(nft.token_address.slice(2))
         }}</q-item-label>
-      </q-item-section>
-      <q-item-section v-if="$slots.header">
+      </div>
+      <div v-if="$slots.header">
         <slot name="header" />
-      </q-item-section>
-    </q-item>
+      </div>
+    </q-card-section>
     <div
-      class="nft-img"
+      class="nft-img square"
       :style="{ backgroundImage: `url(${nft.token_uri})` }"
     />
-    <q-card-section v-if="$slots.footer">
+    <q-card-actions v-if="$slots.footer">
       <slot name="footer" />
-    </q-card-section>
+    </q-card-actions>
   </q-card>
 </template>
 
 <style lang="scss">
 .nft-card {
   flex-grow: 1;
-  min-width: 20%;
-  @media (min-width: $breakpoint-sm-min) {
-    max-width: calc(50% - 24px);
-  }
 
   .nft-img {
     background-color: $grey-9;

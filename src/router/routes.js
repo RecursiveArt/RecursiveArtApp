@@ -11,7 +11,16 @@ const routes = [
       {
         name: "dashboard",
         path: "dashboard",
-        component: () => import("pages/Dashboard.vue")
+        props: true,
+        component: () => import("pages/Dashboard.vue"),
+        children: [
+          {
+            name: "sell",
+            path: "sell/:token_address?/:token_id?",
+            props: true,
+            component: () => import("pages/DialogSellNFT.vue")
+          }
+        ]
       }
     ]
   },
