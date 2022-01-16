@@ -21,16 +21,24 @@
 
           <!-- Buy -->
           <q-item-section>
-            <q-btn label="Buy" color="secondary" text-color="dark" />
+            <q-btn
+              @click="buy(nft)"
+              label="Buy"
+              color="secondary"
+              text-color="dark"
+            />
           </q-item-section>
         </template>
       </NFTCard>
     </div>
+
+    <router-view :model-value="true" no-route-dismiss @hide="$router.back()" />
   </q-page>
 </template>
 
 <script>
 import { defineComponent, computed, onBeforeMount, onBeforeUnmount } from "vue";
+import { useRouter } from "vue-router";
 import { useStore } from "vuex";
 import { tokenValueTxt } from "../util/formatting";
 
@@ -43,10 +51,15 @@ export default defineComponent({
 
   setup() {
     const store = useStore();
+    const router = useRouter();
 
-    const nfts = computed(() => store.state.web3.offers);
+    const nfts = computed(() =>
+      store.state.web3.offers.filter(nft => !nft.closed)
+    );
 
-    store.dispatch("getMarket");
+    const buy = ({ offeringId }) => {
+      router.push({ name: "buy", params: { offeringId } });
+    };
 
     // let listener = null;
     // onBeforeMount(async () => {
@@ -63,7 +76,8 @@ export default defineComponent({
 
     return {
       tokenValueTxt,
-      nfts
+      nfts,
+      buy
     };
   }
 });

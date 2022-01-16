@@ -13,12 +13,17 @@
       >
         <template v-slot:header>
           <!-- Mint Recursive -->
-          <q-btn label="Mint Recursive" color="accent" flat />
+          <q-btn
+            @click="mint(nft)"
+            label="Mint Recursive"
+            color="accent"
+            flat
+          />
         </template>
 
         <template v-slot:footer>
           <!-- Price -->
-          <template v-if="nft.price">
+          <template v-if="nft.offeringId">
             <q-item-section>
               <q-item-label>
                 {{ tokenValueTxt(nft.price, 0.0001, "ETH") }}
@@ -62,16 +67,23 @@ export default defineComponent({
     const router = useRouter();
     const route = useRoute();
 
-    const nfts = computed(() => store.state.web3.userNFTs);
+    const nfts = computed(() =>
+      store.state.web3.userNFTs.map(nft => store.getters.offerFromNFT(nft))
+    );
 
     const sell = ({ token_address, token_id }) => {
       router.push({ name: "sell", params: { token_address, token_id } });
     };
 
+    const mint = ({ offeringId }) => {
+      router.push({ name: "mint", params: { offeringId } });
+    };
+
     return {
       tokenValueTxt,
       nfts,
-      sell
+      sell,
+      mint
     };
   }
 });

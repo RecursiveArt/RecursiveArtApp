@@ -3,6 +3,7 @@ import { NFTStorage } from "nft.storage";
 
 const chain = "goerli";
 const AddrRecursiveExchange = "0x4622AcFF6F752dD42a50280DBFf9B9F18B0a50c8";
+const AddrRecursiveArtNFT = "0xba06DA49Cb6cE5F7487F3CA681662974ac009D1c";
 
 export async function init({ commit, dispatch }) {
   Moralis.onAccountsChanged(accounts => {
@@ -12,7 +13,8 @@ export async function init({ commit, dispatch }) {
     // 'Address added!';
   });
 
-  await dispatch("logIn", true);
+  dispatch("getMarket");
+  return dispatch("logIn", true);
 }
 
 export async function logIn({ state, commit }, silently = false) {
@@ -69,52 +71,67 @@ export async function logOut({ commit }) {
 }
 
 export async function getMarket({ commit }) {
-  let query1 = new Moralis.Query("OfferingPlacedPrice");
-  let results1 = await query1.find();
-  let query2 = new Moralis.Query("OfferingPlacedUserData");
-  let results2 = await query2.find();
-  let query3 = new Moralis.Query("OfferingPlacedTokenData");
-  let results3 = await query3.find();
+  let query = new Moralis.Query("OfferingPlacedPrice");
+  let results1 = await query.find();
+  query = new Moralis.Query("OfferingPlacedUserData");
+  let results2 = await query.find();
+  query = new Moralis.Query("OfferingPlacedTokenData");
+  let results3 = await query.find();
 
-  const results = [];
+  query = new Moralis.Query("EthNFTOwners");
+  let resultsNFTs = await query.find();
+
+  const nfts = [];
+  let data;
   for (let i = 0; i < results1.length; i++) {
-    results[i] = {
+    data = {
       ...results1[i].attributes,
       ...results2[i].attributes,
       ...results3[i].attributes
     };
+
+    let nft = resultsNFTs.find(
+      r =>
+        r.attributes.token_address === data.hostContract &&
+        r.attributes.token_id === data.tokenId
+    );
+
+    if (nft) {
+      nft = { ...data, ...nft.attributes };
+      nft.price = Moralis.Units.FromWei(nft.price);
+      nfts.push(nft);
+    }
   }
 
-  // commit("setOffers", results);
-  console.log(results);
+  commit("setOffers", nfts);
 
-  return results;
+  return nfts;
 }
 
-export async function listenMarket({ state, commit }) {
-  let query = new Moralis.Query("OfferingPlacedTokenData");
-  let subscription = await query.subscribe();
-
-  subscription.on("create", object => {
-    console.log("object created", object);
-  });
-  subscription.on("update", object => {
-    console.log("object updated", object);
-  });
-  subscription.on("enter", object => {
-    console.log("object entered", object);
-  });
-  subscription.on("leave", object => {
-    console.log("object left", object);
-  });
-  subscription.on("delete", object => {
-    console.log("object deleted", object);
-  });
-
-  commit("setOffers", await query.find());
-
-  return subscription;
-}
+// export async function listenMarket({ state, commit }) {
+//   let query = new Moralis.Query("OfferingPlacedTokenData");
+//   let subscription = await query.subscribe();
+//
+//   subscription.on("create", object => {
+//     console.log("object created", object);
+//   });
+//   subscription.on("update", object => {
+//     console.log("object updated", object);
+//   });
+//   subscription.on("enter", object => {
+//     console.log("object entered", object);
+//   });
+//   subscription.on("leave", object => {
+//     console.log("object left", object);
+//   });
+//   subscription.on("delete", object => {
+//     console.log("object deleted", object);
+//   });
+//
+//   commit("setOffers", await query.find());
+//
+//   return subscription;
+// }
 
 export async function sellNFT({ state }, { token_address, token_id, price }) {
   return Moralis.executeFunction({
@@ -138,6 +155,52 @@ export async function sellNFT({ state }, { token_address, token_id, price }) {
       _hostContract: token_address,
       _tokenId: token_id,
       _price: Moralis.Units.ETH(price)
+    }
+  });
+}
+
+export async function buyNFT({ state }, offeringId) {
+  return Moralis.executeFunction({
+    chain,
+    contractAddress: AddrRecursiveExchange,
+    functionName: "closeOffering",
+    abi: [
+      {
+        inputs: [
+          { internalType: "uint256", name: "_offeringId", type: "uint256" }
+        ],
+        name: "closeOffering",
+        outputs: [],
+        stateMutability: "payable",
+        type: "function"
+      }
+    ],
+    params: {
+      _offeringId: offeringId
+    }
+  });
+}
+
+export async function mintNFT({ state }, { cid, offering_id }) {
+  return Moralis.executeFunction({
+    chain,
+    contractAddress: AddrRecursiveArtNFT,
+    functionName: "mintRecursiveNFT",
+    abi: [
+      {
+        inputs: [
+          { internalType: "uint256", name: "_offeringId", type: "uint256" },
+          { internalType: "string", name: "_recursiveArtCID", type: "string" }
+        ],
+        name: "mintRecursiveNFT",
+        outputs: [],
+        stateMutability: "nonpayable",
+        type: "function"
+      }
+    ],
+    params: {
+      _recursiveArtCID: cid,
+      _offeringId: offering_id
     }
   });
 }

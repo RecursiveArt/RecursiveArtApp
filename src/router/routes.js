@@ -4,9 +4,22 @@ const routes = [
     component: () => import("layouts/MainLayout.vue"),
     children: [
       {
-        name: "marketplace",
+        name: "home",
         path: "",
-        component: () => import("pages/Index.vue")
+        redirect: { name: "marketplace" }
+      },
+      {
+        name: "marketplace",
+        path: "marketplace",
+        component: () => import("pages/Index.vue"),
+        children: [
+          {
+            name: "buy",
+            path: "buy/:offeringId?",
+            props: true,
+            component: () => import("pages/DialogBuyNFT.vue")
+          }
+        ]
       },
       {
         name: "dashboard",
@@ -19,6 +32,12 @@ const routes = [
             path: "sell/:token_address?/:token_id?",
             props: true,
             component: () => import("pages/DialogSellNFT.vue")
+          },
+          {
+            name: "mint",
+            path: "mint/:offeringId?",
+            props: true,
+            component: () => import("pages/DialogMintNFT.vue")
           }
         ]
       }
