@@ -181,6 +181,28 @@ export async function buyNFT({ state }, offeringId) {
   });
 }
 
+export async function cancelSale({ state }, offeringId) {
+  return Moralis.executeFunction({
+    chain,
+    contractAddress: AddrRecursiveExchange,
+    functionName: "revokeOffering",
+    abi: [
+      {
+        inputs: [
+          { internalType: "uint256", name: "_offeringId", type: "uint256" }
+        ],
+        name: "revokeOffering",
+        outputs: [],
+        stateMutability: "nonpayable",
+        type: "function"
+      }
+    ],
+    params: {
+      _offeringId: offeringId
+    }
+  });
+}
+
 export async function mintNFT({ state }, { cid, offering_id }) {
   return Moralis.executeFunction({
     chain,
