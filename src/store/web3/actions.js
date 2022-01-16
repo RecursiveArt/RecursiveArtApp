@@ -2,6 +2,7 @@ import Moralis from "moralis";
 import { NFTStorage } from "nft.storage";
 
 const chain = "goerli";
+const AddrRecursiveExchange = "0xfde03eab8bfac573d3f6784e588577258f5ae3fb";
 
 export async function init({ commit, dispatch }) {
   return dispatch("logIn", true);
@@ -55,12 +56,28 @@ export async function uploadImage(context, { name, description, image }) {
   });
 }
 
-export async function sellNFT(context, { token_id, price }) {
-  // return Moralis.Web3API.native.runContractFunction({
-  //   chain,
-  //   address: "",
-  //   function_name: "",
-  //   abi: [],
-  //   params: {}
-  // });
+export async function sellNFT(context, { token_address, token_id, price }) {
+  return Moralis.Web3API.native.runContractFunction({
+    chain,
+    address: AddrRecursiveExchange,
+    function_name: "placeOffering",
+    abi: [
+      {
+        inputs: [
+          { internalType: "address", name: "_hostContract", type: "address" },
+          { internalType: "uint256", name: "_tokenId", type: "uint256" },
+          { internalType: "uint256", name: "_price", type: "uint256" }
+        ],
+        name: "placeOffering",
+        outputs: [],
+        stateMutability: "nonpayable",
+        type: "function"
+      }
+    ],
+    params: {
+      _hostContract: token_address,
+      _tokenId: token_id,
+      _price: price
+    }
+  });
 }

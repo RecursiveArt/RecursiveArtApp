@@ -41,6 +41,7 @@
 import { defineComponent, computed, ref, watch } from "vue";
 import { useRouter } from "vue-router";
 import { useStore } from "vuex";
+import { useQuasar } from "quasar";
 
 import NFTCard from "../components/NFTCard";
 
@@ -52,6 +53,7 @@ export default defineComponent({
   props: ["token_address", "token_id"],
 
   setup(props) {
+    const $q = useQuasar();
     const store = useStore();
     const router = useRouter();
 
@@ -79,6 +81,12 @@ export default defineComponent({
         isSelling.value = false;
         router.back();
       } catch (error) {
+        $q.notify({
+          message: error.error,
+          type: "negative",
+          icon: "alert",
+          position: "top-right"
+        });
         console.error(error);
       } finally {
         isSelling.value = false;
