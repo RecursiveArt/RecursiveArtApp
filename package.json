@@ -10,7 +10,8 @@
     "test": "echo \"No test specified\" && exit 0",
     "icons": "icongenie g -i icon.png --quality 12 --theme-color 191919 --skip-trim",
     "dev": "quasar dev -m spa",
-    "build": "quasar build -m pwa"
+    "build": "quasar build -m pwa",
+    "deploy": "moralis-admin-cli deploy -p ./dist/pwa/ -d of1jp1b4dzth.usemoralis.com"
   },
   "dependencies": {
     "@quasar/extras": "^1.0.0",
